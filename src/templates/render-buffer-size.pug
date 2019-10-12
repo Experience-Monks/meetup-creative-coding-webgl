@@ -1,4 +1,33 @@
 extends includes/_sketch
 
+block content
+  style.
+    .render-size {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      letter-spacing: 1px;
+      color: black;
+    }
+    .base {
+      background-color: rgba(255, 0, 0, 0.3);
+    }
+    .resized {
+      background-color: rgba(0, 255, 255, 0.3);
+    }
+
+  .render-size.base
+    .text Max Frame Buffer Size
+    .size 0x0
+  .render-size.resized
+    .text Resized Frame Buffer Size
+    .size 0x0
+
 block script
-	script(src='js/render-buffer-size.js')
+  script(src='js/render-buffer-size.js')
