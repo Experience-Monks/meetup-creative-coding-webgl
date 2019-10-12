@@ -1,0 +1,38 @@
+{
+  "name": "creative-coding-meetup",
+  "version": "0.0.0",
+  "description": "Creative coding demos with WebGL",
+  "scripts": {
+    "start": "concurrently 'npm run server' 'npm run src:js' 'npm run src:html'",
+    "server": "live-server ./build --port 3000 --quiet --watch ./build --watch ./build --wait 0",
+    "src:js": "webpack --colors --watch",
+    "src:html": "npm run src:files; pug --silent --obj ./build/sketches.json --watch ./src/templates/*.pug --out ./build",
+    "src:files": "pug --obj ./build/sketches.json ./src/templates/*.pug --out ./build",
+    "build": "npm run lint; babel src --out-dir lib",
+    "lint": "eslint --fix --ext .js ./src ./internals --cache",
+    "precommit": "npm run lint"
+  },
+  "author": "Amelie Rosser <amelierosser1986@gmail.com> (https://www.ixviii.io)",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.6.5",
+    "babel-eslint": "^8.0.1",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "concurrently": "^3.6.1",
+    "eslint": "^4.10.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-config-prettier": "^2.7.0",
+    "eslint-plugin-import": "^2.8.0",
+    "husky": "^0.14.3",
+    "live-server": "^1.2.0",
+    "pug-cli": "^1.0.0-alpha6",
+    "webpack": "^3.8.1"
+  },
+  "dependencies": {
+    "@jam3/stats": "^1.0.1",
+    "dat.gui": "^0.7.6",
+    "query-string": "^5.0.1"
+  }
+}

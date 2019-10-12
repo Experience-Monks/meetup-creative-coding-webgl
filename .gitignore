@@ -1,0 +1,9 @@
+node_modules
+.DS_Store
+npm-debug.log
+.eslintcache
+*.js.map
+lib
+
+/build/js/*.js
+/build/*.html

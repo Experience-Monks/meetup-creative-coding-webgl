@@ -1,0 +1,15 @@
+extends includes/_layout
+
+block content
+  header
+    h1 Creative Coding Meetup
+    p.description WebGL demos
+    hr
+    nav.nav
+      for category, key in sketches
+        .nav__item
+          h3 #{key}
+          ul
+            for sketch in category
+              li
+                a(href=`${sketch.id}.html`) #{sketch.title}

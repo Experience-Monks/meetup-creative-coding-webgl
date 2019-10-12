@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Serif');
+
+html {
+  font-size: 15px;
+}
+
+body {
+  margin: 0;
+  font-family: 'PT Serif', serif;
+  background-color: black;
+  color: white;
+  font-size: 1rem;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+.example {
+}
+
+h1 {
+  font-size: 2.5rem;
+  letter-spacing: 0.025em;
+  margin: 0;
+}
+
+h3 {
+  letter-spacing: 0.03em;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+hr {
+  border: 0;
+  border-bottom: 1px solid #ffffff;
+}
+
+header {
+  padding: 2rem;
+}
+
+.description {
+  color: #bbbbbb;
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.nav__item {
+  flex: 0 auto;
+  display: flex;
+  flex-direction: column;
+  min-width: 10rem;
+  min-height: 5rem;
+}
+
+.nav__item ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav__item ul li {
+  margin: 0.5rem 0;
+}
+
+#fps {
+  background-color: black !important;
+}
+
+#fpsGraph > span {
+  background-color: black !important;
+}
+
+#fpsText {
+  color: white !important;
+}
+
+#fpsGraph {
+  background-color: white !important;
+}
