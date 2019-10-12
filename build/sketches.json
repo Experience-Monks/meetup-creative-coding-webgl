@@ -2,8 +2,8 @@
   "sketches": {
     "Category": [
       {
-        "id": "template",
-        "title": "Template"
+        "id": "render-buffer-size",
+        "title": "Render Buffer Size"
       }
     ]
   }

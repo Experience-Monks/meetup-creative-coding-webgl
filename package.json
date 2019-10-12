@@ -4,7 +4,7 @@
   "description": "Creative coding demos with WebGL",
   "scripts": {
     "start": "concurrently 'npm run server' 'npm run src:js' 'npm run src:html'",
-    "server": "live-server ./build --port 3000 --quiet --watch ./build --watch ./build --wait 0",
+    "server": "live-server ./build --port 3000 --quiet --watch ./build --watch ./build",
     "src:js": "webpack --colors --watch",
     "src:html": "npm run src:files; pug --silent --obj ./build/sketches.json --watch ./src/templates/*.pug --out ./build",
     "src:files": "pug --obj ./build/sketches.json ./src/templates/*.pug --out ./build",
@@ -33,6 +33,7 @@
   "dependencies": {
     "@jam3/stats": "^1.0.1",
     "dat.gui": "^0.7.6",
-    "query-string": "^5.0.1"
+    "query-string": "^5.0.1",
+    "three": "^0.109.0"
   }
 }
