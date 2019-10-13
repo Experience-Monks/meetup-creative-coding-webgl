@@ -1,10 +1,9 @@
-import Stats from 'stats-js'; // eslint-disable-line import/no-extraneous-dependencies
+import RenderStats from './render-stats';
 
-const stats = new Stats();
-stats.domElement.style.position = 'absolute';
-stats.domElement.style.left = '0';
-stats.domElement.style.top = '0';
+const stats = require('@jam3/stats')();
 
-document.body.appendChild(stats.domElement);
+stats.domElement.style.cssText = 'position:fixed;left:0;top:0;z-index:10000';
 
-export default stats;
+export const renderStats = new RenderStats();
+
+if (document.body != null) document.body.appendChild(renderStats.domElement);

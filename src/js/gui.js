@@ -1,12 +1,10 @@
-import dat from 'dat-gui';
+import dat from 'dat.gui';
 import queryString from 'query-string';
 
 const gui = new dat.GUI();
 // dat.GUI.toggleHide();
 
-module.exports = modes => {
-  const options = modes !== undefined ? modes : ['webgl2', 'webgl'];
-
+module.exports = () => {
   const queries = queryString.parse(window.location.search);
 
   function getQuery(query) {
@@ -24,11 +22,11 @@ module.exports = modes => {
   };
 
   const guiController = {
-    context: getQuery('context') || options[0]
+    cameraDebug: getQuery('cameraDebug') === 'true'
   };
 
-  gui.add(guiController, 'context', options).onChange(val => {
-    setQuery('context', val);
+  gui.add(guiController, 'cameraDebug').onChange(val => {
+    setQuery('cameraDebug', val);
   });
 
   return {
