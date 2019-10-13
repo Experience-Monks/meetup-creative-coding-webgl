@@ -2,8 +2,24 @@
   "sketches": {
     "Category": [
       {
-        "id": "render-buffer-size",
-        "title": "Render Buffer Size"
+        "id": "0-environment",
+        "title": "0. Setting up the environment"
+      },
+      {
+        "id": "1-particles",
+        "title": "1. Adding some particles!"
+      },
+      {
+        "id": "2-render-buffer-size",
+        "title": "2. Render buffer resizing"
+      },
+      {
+        "id": "3-gpu-profiling",
+        "title": "3. Profiling the gpu"
+      },
+      {
+        "id": "4-post-processing",
+        "title": "4. Post Processing"
       }
     ]
   }
