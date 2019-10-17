@@ -11,9 +11,10 @@ import {
 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { renderStats } from '../stats';
-import { guiController } from '../gui';
+import { guiController, gui } from '../gui';
 import Particles from '../1-particles/particles/particles';
 import ParticlesNormal from '../1-particles/particles/particles-normal';
+import graphicsMode, { GRAPHICS_HIGH } from './profiler';
 
 // Max render buffer size
 const USE_FULLSCREEN = false;
@@ -22,16 +23,8 @@ const MAX_FRAME_BUFFER_SIZE = new Vector2(1280, 720);
 const BASE_SIZE = Math.sqrt(MAX_FRAME_BUFFER_SIZE.x * MAX_FRAME_BUFFER_SIZE.y);
 const MAX_SIZE = BASE_SIZE * BASE_SIZE;
 
-// Debug elements
-const renderSizeBase = document.querySelector('.base');
-const renderSizeBaseText = renderSizeBase.querySelector('.size');
-const renderSizeResized = document.querySelector('.resized');
-const renderSizeResizedText = renderSizeResized.querySelector('.size');
-
-renderSizeBase.style.width = `${MAX_FRAME_BUFFER_SIZE.x}px`;
-renderSizeBase.style.height = `${MAX_FRAME_BUFFER_SIZE.y}px`;
-renderSizeResized.style.left = `${MAX_FRAME_BUFFER_SIZE.x / 2}px`;
-renderSizeBaseText.innerHTML = `${MAX_FRAME_BUFFER_SIZE.x}x${MAX_FRAME_BUFFER_SIZE.y}`;
+guiController.graphics = graphicsMode();
+gui.add(guiController, 'graphics');
 
 // Calculate the render size based on the max dimension
 function calculateRendererSize(windowWidth, windowHeight) {
@@ -58,7 +51,9 @@ function calculateRendererSize(windowWidth, windowHeight) {
   };
 }
 
-const renderer = new WebGLRenderer({ antialias: true });
+const renderer = new WebGLRenderer({
+  antialias: graphicsMode() === GRAPHICS_HIGH
+});
 renderer.debug.checkShaderErrors = true;
 
 renderer.setScissorTest(true);
@@ -107,8 +102,9 @@ scene.add(helpers);
 
 // Create particle classes
 const particlesNormal = new ParticlesNormal(renderer);
+const totalParticles = graphicsMode() === GRAPHICS_HIGH ? 5000 : 2500;
 const particles = new Particles(
-  5000,
+  totalParticles,
   particlesNormal,
   renderer.getPixelRatio()
 );
@@ -156,11 +152,6 @@ function onResize() {
   // Scale to window
   renderer.domElement.style.width = `${window.innerWidth}px`;
   renderer.domElement.style.height = `${window.innerHeight}px`;
-
-  // Update debug elements
-  renderSizeResized.style.width = `${renderSize.width}px`;
-  renderSizeResized.style.height = `${renderSize.height}px`;
-  renderSizeResizedText.innerHTML = `${renderSize.width}x${renderSize.height}`;
 
   // Update camera projection
   cameras.dev.aspect = renderSize.width / renderSize.height;

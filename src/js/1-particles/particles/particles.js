@@ -10,9 +10,9 @@ import { spherePoint } from '../../utils';
 import { gui } from '../../gui';
 
 export default class Particles {
-  constructor(particlesNormal, pixelRatio) {
+  constructor(totalParticles, particlesNormal, pixelRatio) {
     this.config = {
-      totalParticles: 5000,
+      totalParticles,
       size: {
         min: 0.1,
         max: 5

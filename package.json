@@ -33,6 +33,7 @@
   "dependencies": {
     "@jam3/stats": "^1.0.1",
     "dat.gui": "^0.7.6",
+    "detect-gpu": "^1.1.2",
     "query-string": "^5.0.1",
     "three": "^0.109.0"
   }
