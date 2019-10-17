@@ -61,7 +61,11 @@ scene.add(helpers);
 
 // Create particle classes
 const particlesNormal = new ParticlesNormal(renderer);
-const particles = new Particles(particlesNormal, renderer.getPixelRatio());
+const particles = new Particles(
+  5000,
+  particlesNormal,
+  renderer.getPixelRatio()
+);
 scene.add(particles.mesh);
 
 function renderScene(camera, left, bottom, width, height) {

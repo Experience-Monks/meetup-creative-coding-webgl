@@ -9,8 +9,7 @@ import {
 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { renderStats } from '../stats';
-
-const { guiController } = require('../gui')();
+import { guiController } from '../gui';
 
 const renderer = new WebGLRenderer({ antialias: true });
 renderer.debug.checkShaderErrors = true;
