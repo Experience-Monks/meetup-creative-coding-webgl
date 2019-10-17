@@ -12,7 +12,6 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { renderStats } from '../stats';
 import Particles from './particles/particles';
 import ParticlesNormal from './particles/particles-normal';
-
 import { guiController } from '../gui';
 
 const renderer = new WebGLRenderer({ antialias: true });

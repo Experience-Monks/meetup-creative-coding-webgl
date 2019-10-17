@@ -5,12 +5,19 @@ import {
   GridHelper,
   AxesHelper,
   Vector3,
-  Vector2
+  Vector2,
+  CameraHelper,
+  Group
 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { renderStats } from '../stats';
+import { guiController } from '../gui';
+import Particles from '../1-particles/particles/particles';
+import ParticlesNormal from '../1-particles/particles/particles-normal';
 
 // Max render buffer size
-const MAX_FRAME_BUFFER_SIZE = new Vector2(640, 320);
+const USE_FULLSCREEN = false;
+const MAX_FRAME_BUFFER_SIZE = new Vector2(1280, 720);
 // Caculate square root
 const BASE_SIZE = Math.sqrt(MAX_FRAME_BUFFER_SIZE.x * MAX_FRAME_BUFFER_SIZE.y);
 const MAX_SIZE = BASE_SIZE * BASE_SIZE;
@@ -23,12 +30,19 @@ const renderSizeResizedText = renderSizeResized.querySelector('.size');
 
 renderSizeBase.style.width = `${MAX_FRAME_BUFFER_SIZE.x}px`;
 renderSizeBase.style.height = `${MAX_FRAME_BUFFER_SIZE.y}px`;
+renderSizeResized.style.left = `${MAX_FRAME_BUFFER_SIZE.x / 2}px`;
 renderSizeBaseText.innerHTML = `${MAX_FRAME_BUFFER_SIZE.x}x${MAX_FRAME_BUFFER_SIZE.y}`;
 
 // Calculate the render size based on the max dimension
 function calculateRendererSize(windowWidth, windowHeight) {
   let width = windowWidth;
   let height = windowHeight;
+  if (USE_FULLSCREEN) {
+    return {
+      width,
+      height
+    };
+  }
   if (windowWidth * windowHeight > MAX_SIZE) {
     const ratio = height / width;
     width = BASE_SIZE;
@@ -45,39 +59,92 @@ function calculateRendererSize(windowWidth, windowHeight) {
 }
 
 const renderer = new WebGLRenderer({ antialias: true });
-renderer.setClearColor(0xffffff);
-// renderer.domElement.style.border = '1px solid white';
+renderer.debug.checkShaderErrors = true;
+
+renderer.setScissorTest(true);
+
 let renderSize = calculateRendererSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(renderSize.width, renderSize.height);
 document.body.appendChild(renderer.domElement);
 
-const camera = new PerspectiveCamera(
-  65,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000
-);
-camera.position.set(20, 10, 20);
-camera.lookAt(new Vector3());
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;
+const cameras = {
+  dev: new PerspectiveCamera(
+    65,
+    renderSize.width / renderSize.height,
+    0.1,
+    1000
+  ),
+  main: new PerspectiveCamera(
+    65,
+    renderSize.width / renderSize.height,
+    0.1,
+    1000
+  )
+};
+
+cameras.dev.position.set(20, 10, 20);
+cameras.dev.lookAt(new Vector3());
+
+cameras.main.position.set(0, 10, 20);
+cameras.main.lookAt(new Vector3());
+
+const controls = {
+  dev: new OrbitControls(cameras.dev, renderer.domElement),
+  main: new OrbitControls(cameras.main, renderer.domElement)
+};
+controls.main.enableDamping = true;
 
 const scene = new Scene();
 
-scene.add(new GridHelper(10, 10), new AxesHelper());
+// Add some debug helpers
+const gridHelper = new GridHelper(10, 10);
+const axesHelper = new AxesHelper();
+const cameraHelper = new CameraHelper(cameras.main);
+const helpers = new Group();
+helpers.add(gridHelper, axesHelper, cameraHelper);
+scene.add(helpers);
 
-function update() {
-  requestAnimationFrame(update);
-  controls.update();
+// Create particle classes
+const particlesNormal = new ParticlesNormal(renderer);
+const particles = new Particles(particlesNormal, renderer.getPixelRatio());
+scene.add(particles.mesh);
+
+function renderScene(camera, left, bottom, width, height) {
+  left *= renderSize.width;
+  bottom *= renderSize.height;
+  width *= renderSize.width;
+  height *= renderSize.height;
+
+  renderer.setViewport(left, bottom, width, height);
+  renderer.setScissor(left, bottom, width, height);
+
   renderer.render(scene, camera);
 }
 
-function onResize() {
-  // Update camera projection
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
+function update() {
+  requestAnimationFrame(update);
 
+  const activeCamera = guiController.cameraDebug ? cameras.dev : cameras.main;
+
+  controls.main.enabled = !guiController.cameraDebug;
+  helpers.visible = guiController.cameraDebug;
+  controls.main.update();
+
+  // Render particle normal texture
+  particlesNormal.render(activeCamera);
+
+  if (guiController.cameraDebug) {
+    renderScene(cameras.dev, 0, 0, 1, 1);
+    renderScene(cameras.main, 0, 0, 0.25, 0.25);
+  } else {
+    renderScene(cameras.main, 0, 0, 1, 1);
+  }
+
+  renderStats.update(renderer);
+}
+
+function onResize() {
   // Set new render size
   renderSize = calculateRendererSize(window.innerWidth, window.innerHeight);
   renderer.setSize(renderSize.width, renderSize.height);
@@ -90,6 +157,12 @@ function onResize() {
   renderSizeResized.style.width = `${renderSize.width}px`;
   renderSizeResized.style.height = `${renderSize.height}px`;
   renderSizeResizedText.innerHTML = `${renderSize.width}x${renderSize.height}`;
+
+  // Update camera projection
+  cameras.dev.aspect = renderSize.width / renderSize.height;
+  cameras.main.aspect = cameras.dev.aspect;
+  cameras.dev.updateProjectionMatrix();
+  cameras.main.updateProjectionMatrix();
 }
 
 window.addEventListener('resize', onResize);
