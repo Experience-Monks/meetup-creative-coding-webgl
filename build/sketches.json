@@ -10,8 +10,8 @@
         "title": "2. Adding some particles!"
       },
       {
-        "id": "3-render-buffer-size",
-        "title": "3. Render buffer resizing"
+        "id": "3-context-resizing",
+        "title": "3. Context resizing"
       },
       {
         "id": "4-gpu-profiling",

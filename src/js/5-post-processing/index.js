@@ -15,7 +15,7 @@ import { renderStats } from '../stats';
 import { guiController, gui } from '../gui';
 import Particles from '../2-particles/particles/particles';
 import ParticlesNormal from '../2-particles/particles/particles-normal';
-import graphicsMode, { GRAPHICS_HIGH } from '../3-gpu-profiling/profiler';
+import graphicsMode, { GRAPHICS_HIGH } from '../4-gpu-profiling/profiler';
 import PostProcessing from './post-processing';
 
 // Max render buffer size
