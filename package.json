@@ -7,7 +7,7 @@
     "server": "live-server ./build --port 3000 --quiet --watch ./build --watch ./build",
     "src:js": "webpack --colors --watch",
     "src:html": "npm run src:files; pug --silent --obj ./build/sketches.json --watch ./src/templates/*.pug --out ./build",
-    "src:files": "pug --obj ./build/sketches.json ./src/templates/*.pug --out ./build",
+    "src:files": "pug --silent --obj ./build/sketches.json ./src/templates/*.pug --out ./build",
     "build": "npm run lint; babel src --out-dir lib",
     "lint": "eslint --fix --ext .js ./src ./internals --cache",
     "precommit": "npm run lint"
