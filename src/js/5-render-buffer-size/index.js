@@ -12,8 +12,8 @@ import {
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { renderStats } from '../stats';
 import { guiController } from '../gui';
-import Particles from '../1-particles/particles/particles';
-import ParticlesNormal from '../1-particles/particles/particles-normal';
+import Particles from '../2-particles/particles/particles';
+import ParticlesNormal from '../2-particles/particles/particles-normal';
 
 // Max render buffer size
 const USE_FULLSCREEN = false;

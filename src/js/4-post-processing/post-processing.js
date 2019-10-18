@@ -53,7 +53,7 @@ export default class PostProcessing {
           value: 0
         },
         noiseSpeed: { value: 0.18 },
-        noiseAmount: { value: 0.1 }
+        noiseAmount: { value: 0.35 }
       },
       vertexShader: `
         void main() {

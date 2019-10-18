@@ -2,24 +2,24 @@
   "sketches": {
     "Steps": [
       {
-        "id": "0-environment",
-        "title": "0. Setting up the environment"
+        "id": "1-environment",
+        "title": "1. Setting up the environment"
       },
       {
-        "id": "1-particles",
-        "title": "1. Adding some particles!"
+        "id": "2-particles",
+        "title": "2. Adding some particles!"
       },
       {
-        "id": "2-render-buffer-size",
-        "title": "2. Render buffer resizing"
+        "id": "3-render-buffer-size",
+        "title": "3. Render buffer resizing"
       },
       {
-        "id": "3-gpu-profiling",
-        "title": "3. Profiling the gpu"
+        "id": "4-gpu-profiling",
+        "title": "4. Profiling the gpu"
       },
       {
-        "id": "4-post-processing",
-        "title": "4. Post Processing"
+        "id": "5-post-processing",
+        "title": "5. Post Processing"
       }
     ]
   }
