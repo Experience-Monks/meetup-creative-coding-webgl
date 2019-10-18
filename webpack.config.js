@@ -30,5 +30,5 @@ module.exports = {
       }
     ]
   },
-  stats: 'minimal'
+  stats: 'errors-only'
 };
