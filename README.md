@@ -20,3 +20,7 @@ The aim is to demonstrate some of the best practices and workflows we use on Web
 
 1. `npm install`
 2. `npm start`
+
+## License
+
+MIT [License.md](LICENSE.md)
