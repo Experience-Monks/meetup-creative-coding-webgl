@@ -1,8 +1,16 @@
+import { Vector3 } from 'three';
+
+// Vector zero constant
+export const VECTOR_ZERO = new Vector3();
+
 /**
- *
+ * createCanvas
+ * Create and return a canvas by width and height
  *
  * @export
- * @param {*} params
+ * @param {number} width
+ * @param {number} height
+ * @returns {object}
  */
 export function createCanvas(width, height) {
   const canvas = document.createElement('canvas');
@@ -16,16 +24,18 @@ export function createCanvas(width, height) {
 }
 
 /**
- *
+ * spherePoint
+ * Return a spherical point based on uv
+ * https://stackoverflow.com/questions/5531827/random-point-on-a-given-sphere
  *
  * @export
- * @param {*} x0
- * @param {*} y0
- * @param {*} z0
- * @param {*} u
- * @param {*} v
- * @param {*} radius
- * @returns
+ * @param {number} x0
+ * @param {number} y0
+ * @param {number} z0
+ * @param {number} u
+ * @param {number} v
+ * @param {number} radius
+ * @returns {object}
  */
 export function spherePoint(x0, y0, z0, u, v, radius) {
   const theta = 2 * Math.PI * u;

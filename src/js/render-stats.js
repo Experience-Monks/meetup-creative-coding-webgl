@@ -2,6 +2,8 @@
 
 import { WebGLRenderer } from 'three';
 
+// https://github.com/jeromeetienne/threex.rendererstats
+
 /**
  * @author mrdoob / http://mrdoob.com/
  * @author jetienne / http://jetienne.com/

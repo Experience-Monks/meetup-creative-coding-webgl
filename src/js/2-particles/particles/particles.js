@@ -20,6 +20,7 @@ export default class Particles {
       }
     };
 
+    // Create two attributes for positions and size
     this.attributes = {
       position: new BufferAttribute(
         new Float32Array(this.config.totalParticles * 3),
@@ -28,6 +29,7 @@ export default class Particles {
       size: new BufferAttribute(new Float32Array(this.config.totalParticles), 1)
     };
 
+    // Set initial position and scale for particles
     for (let i = 0; i < this.config.totalParticles; i++) {
       const { x, y, z } = spherePoint(
         0,
@@ -45,27 +47,30 @@ export default class Particles {
       this.attributes.size.setX(i, size);
     }
 
+    // Setup buffer geometry
     const geometry = new BufferGeometry();
     geometry.addAttribute('position', this.attributes.position);
     geometry.addAttribute('size', this.attributes.size);
 
+    // Setup custom shader material
     const material = new ShaderMaterial({
       uniforms: {
-        particleSize: { value: 100 },
-        lightDirection: { value: new Vector3(1, 1, 1) },
+        particleSize: { value: 100 }, // Scale particles uniformly
+        lightDirection: { value: new Vector3(1, 1, 1) }, // Light direction for lambert shading
         normalMap: {
-          type: 't',
-          value: particlesNormal.renderTarget.texture
+          value: particlesNormal.renderTarget.texture // Normal map
         }
       },
       vertexShader,
       fragmentShader
     });
 
+    // Add gui slider to tweak light direction
     gui.add(material.uniforms.lightDirection.value, 'x', -1, 1).name('light x');
     gui.add(material.uniforms.lightDirection.value, 'y', -1, 1).name('light y');
     gui.add(material.uniforms.lightDirection.value, 'z', -1, 1).name('light z');
 
+    // Create points mesh
     this.mesh = new Points(geometry, material);
   }
 }

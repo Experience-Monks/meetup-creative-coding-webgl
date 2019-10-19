@@ -24,7 +24,7 @@ export default class PostProcessing {
 
     const geometry = new BufferGeometry();
     const attribute = new BufferAttribute(
-      new Float32Array([-1, -1, 0, -1, 4, 0, 4, -1, 0]),
+      new Float32Array([-1, -1, 0, -1, 3, 0, 3, -1, 0]),
       3
     );
     geometry.addAttribute('position', attribute);

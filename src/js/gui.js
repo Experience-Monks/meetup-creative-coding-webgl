@@ -1,6 +1,8 @@
 import dat from 'dat.gui';
 import queryString from 'query-string';
 
+// Setup dat.gui
+
 const gui = new dat.GUI();
 // dat.GUI.toggleHide();
 

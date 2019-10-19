@@ -62,8 +62,8 @@ scene.add(helpers);
 // Create particle classes
 const particlesNormal = new ParticlesNormal(renderer);
 const particles = new Particles(
-  5000,
-  particlesNormal,
+  5000, // total particles
+  particlesNormal, // particles normal texture class
   renderer.getPixelRatio()
 );
 scene.add(particles.mesh);
