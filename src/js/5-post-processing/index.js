@@ -18,17 +18,14 @@ import ParticlesNormal from '../2-particles/particles/particles-normal';
 import graphicsMode, { GRAPHICS_HIGH } from '../4-gpu-profiling/profiler';
 import PostProcessing from './post-processing';
 
-// Max render buffer size
 const USE_FULLSCREEN = false;
 const MAX_FRAME_BUFFER_SIZE = new Vector2(1280, 720);
-// Caculate square root
 const BASE_SIZE = Math.sqrt(MAX_FRAME_BUFFER_SIZE.x * MAX_FRAME_BUFFER_SIZE.y);
 const MAX_SIZE = BASE_SIZE * BASE_SIZE;
 
 guiController.graphics = graphicsMode();
 gui.add(guiController, 'graphics');
 
-// Calculate the render size based on the max dimension
 function calculateRendererSize(windowWidth, windowHeight) {
   let width = windowWidth;
   let height = windowHeight;
@@ -65,6 +62,7 @@ renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(renderSize.width, renderSize.height);
 document.body.appendChild(renderer.domElement);
 
+// Create new post processing class
 const postProcessing = new PostProcessing(
   renderer,
   renderSize.width,
@@ -162,6 +160,7 @@ function update() {
     renderScene(cameras.dev, 0, 0, 1, 1, delta);
     renderScene(cameras.main, 0, 0, 0.25, delta, 0.25);
   } else {
+    // Only render post processing on main camera
     renderScene(cameras.main, 0, 0, 1, 1, delta, true);
   }
 
@@ -178,7 +177,7 @@ function onResize() {
   renderer.domElement.style.width = `${window.innerWidth}px`;
   renderer.domElement.style.height = `${window.innerHeight}px`;
 
-  // Update camera projection
+  // Update camera projections
   cameras.dev.aspect = renderSize.width / renderSize.height;
   cameras.main.aspect = cameras.dev.aspect;
   cameras.dev.updateProjectionMatrix();

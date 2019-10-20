@@ -15,11 +15,13 @@ import { guiController } from '../gui';
 import Particles from '../2-particles/particles/particles';
 import ParticlesNormal from '../2-particles/particles/particles-normal';
 
-// Max render buffer size
+// Fullscreen context mode to preview performance difference
 const USE_FULLSCREEN = false;
+// Max render buffer dimensions 1280 * 720
 const MAX_FRAME_BUFFER_SIZE = new Vector2(1280, 720);
 // Caculate square root
 const BASE_SIZE = Math.sqrt(MAX_FRAME_BUFFER_SIZE.x * MAX_FRAME_BUFFER_SIZE.y);
+// Max base dimension
 const MAX_SIZE = BASE_SIZE * BASE_SIZE;
 
 // Debug elements
@@ -28,12 +30,13 @@ const renderSizeBaseText = renderSizeBase.querySelector('.size');
 const renderSizeResized = document.querySelector('.resized');
 const renderSizeResizedText = renderSizeResized.querySelector('.size');
 
+// Add infos for context dimensions
 renderSizeBase.style.width = `${MAX_FRAME_BUFFER_SIZE.x}px`;
 renderSizeBase.style.height = `${MAX_FRAME_BUFFER_SIZE.y}px`;
 renderSizeResized.style.left = `${MAX_FRAME_BUFFER_SIZE.x / 2}px`;
 renderSizeBaseText.innerHTML = `${MAX_FRAME_BUFFER_SIZE.x}x${MAX_FRAME_BUFFER_SIZE.y}`;
 
-// Calculate the render size based on the max dimension
+// Calculate the context size based on the max dimension
 function calculateRendererSize(windowWidth, windowHeight) {
   let width = windowWidth;
   let height = windowHeight;
@@ -149,7 +152,7 @@ function update() {
 }
 
 function onResize() {
-  // Set new render size
+  // Calculate new render size
   renderSize = calculateRendererSize(window.innerWidth, window.innerHeight);
   renderer.setSize(renderSize.width, renderSize.height);
 
@@ -162,7 +165,7 @@ function onResize() {
   renderSizeResized.style.height = `${renderSize.height}px`;
   renderSizeResizedText.innerHTML = `${renderSize.width}x${renderSize.height}`;
 
-  // Update camera projection
+  // Update camera projections
   cameras.dev.aspect = renderSize.width / renderSize.height;
   cameras.main.aspect = cameras.dev.aspect;
   cameras.dev.updateProjectionMatrix();

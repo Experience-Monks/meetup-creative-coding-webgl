@@ -16,17 +16,15 @@ import Particles from '../2-particles/particles/particles';
 import ParticlesNormal from '../2-particles/particles/particles-normal';
 import graphicsMode, { GRAPHICS_HIGH } from './profiler';
 
-// Max render buffer size
 const USE_FULLSCREEN = false;
 const MAX_FRAME_BUFFER_SIZE = new Vector2(1280, 720);
-// Caculate square root
 const BASE_SIZE = Math.sqrt(MAX_FRAME_BUFFER_SIZE.x * MAX_FRAME_BUFFER_SIZE.y);
 const MAX_SIZE = BASE_SIZE * BASE_SIZE;
 
+// Display the graphics mode on the gui
 guiController.graphics = graphicsMode();
 gui.add(guiController, 'graphics');
 
-// Calculate the render size based on the max dimension
 function calculateRendererSize(windowWidth, windowHeight) {
   let width = windowWidth;
   let height = windowHeight;
@@ -102,6 +100,7 @@ scene.add(helpers);
 
 // Create particle classes
 const particlesNormal = new ParticlesNormal(renderer);
+// Set the amount of particles depending on graphics setting
 const totalParticles = graphicsMode() === GRAPHICS_HIGH ? 5000 : 2500;
 const particles = new Particles(
   totalParticles,
@@ -145,7 +144,7 @@ function update() {
 }
 
 function onResize() {
-  // Set new render size
+  // Calculate new render size
   renderSize = calculateRendererSize(window.innerWidth, window.innerHeight);
   renderer.setSize(renderSize.width, renderSize.height);
 

@@ -51,7 +51,6 @@ controls.main.enableDamping = true;
 
 const scene = new Scene();
 
-// Add some debug helpers
 const gridHelper = new GridHelper(10, 10);
 const axesHelper = new AxesHelper();
 const cameraHelper = new CameraHelper(cameras.main);
@@ -108,7 +107,7 @@ function onResize() {
   cameras.main.aspect = cameras.dev.aspect;
   cameras.dev.updateProjectionMatrix();
   cameras.main.updateProjectionMatrix();
-  // Set frame buffer size
+  // Set webgl context size
   renderer.setSize(window.innerWidth, window.innerHeight);
 }
 

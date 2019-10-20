@@ -5,6 +5,7 @@ const gpuTier = getGPUTier();
 export const GRAPHICS_HIGH = 'GRAPHICS_HIGH';
 export const GRAPHICS_NORMAL = 'GRAPHICS_NORMAL';
 
+// Determine graphics setting based on gpu tier
 export default function graphicsMode() {
   switch (gpuTier.tier) {
     case 'GPU_DESKTOP_TIER_3':

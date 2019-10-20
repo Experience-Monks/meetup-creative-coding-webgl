@@ -22,6 +22,7 @@ export default class PostProcessing {
 
     const pixelRatio = renderer.getPixelRatio();
 
+    // Construct a big triangle that covers screen space
     const geometry = new BufferGeometry();
     const attribute = new BufferAttribute(
       new Float32Array([-1, -1, 0, -1, 3, 0, 3, -1, 0]),
@@ -30,6 +31,8 @@ export default class PostProcessing {
     geometry.addAttribute('position', attribute);
     geometry.setIndex([0, 2, 1]);
 
+    // Setup the render target
+    // Note: We want to use the same pixel ratio as the webgl renderer
     this.renderTarget = new WebGLRenderTarget(
       width * pixelRatio,
       height * pixelRatio,
@@ -41,6 +44,7 @@ export default class PostProcessing {
       }
     );
 
+    // Setup the material with some noise uniforms
     const material = new ShaderMaterial({
       uniforms: {
         textureMap: {
@@ -60,10 +64,12 @@ export default class PostProcessing {
       fragmentShader
     });
 
+    // Create an empty scene and orthographic camera
     this.scene = new Scene();
     this.camera = new OrthographicCamera(-1, 1, 1, -1, 0, 1);
 
     this.mesh = new Mesh(geometry, material);
+    // Mesh won't be moving so we can turn off the matrix update
     this.mesh.matrixAutoUpdate = false;
     this.mesh.updateMatrix();
 
@@ -78,6 +84,7 @@ export default class PostProcessing {
   }
 
   resize(width, height) {
+    // Resize the render target when the resolution changes
     const pixelRatio = this.renderer.getPixelRatio();
     this.renderTarget.setSize(width * pixelRatio, height * pixelRatio);
     this.mesh.material.uniforms.resolution.value.x = width * pixelRatio;
@@ -85,10 +92,15 @@ export default class PostProcessing {
   }
 
   render(scene, camera, delta) {
+    // Update time uniform
     this.mesh.material.uniforms.time.value += delta;
+    // Set the active render target
     this.renderer.setRenderTarget(this.renderTarget);
+    // Render the scene into the quad
     this.renderer.render(scene, camera);
+    // Reset the render target
     this.renderer.setRenderTarget(null);
+    // Render the quad fullscreen
     this.renderer.render(this.scene, this.camera);
   }
 }
