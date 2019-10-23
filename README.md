@@ -2,7 +2,7 @@
 
 A WebGL experiment created for Jam3's Creative Coding Meetup on October 23rd 2019.
 
-![alt text](screenshot.jpg 'WebGL experiment')
+![alt text](screenshot.gif 'WebGL experiment')
 
 ## Contents
 

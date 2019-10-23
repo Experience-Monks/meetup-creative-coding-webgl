@@ -29,9 +29,9 @@ export const fragmentShader = `
   void main() {
     float c = circle(vec2(0.5), gl_PointCoord.xy, 0.5);
     // Discard any pixels outside of circle
-    if (c == 0.0) discard;
+    // if (c == 0.0) discard;
 
-    vec4 outgoingColor = vec4(0.0, 0.0, 0.0, 1.0);
+    vec4 outgoingColor = vec4(1.0);
 
     // Sample normal from texture, y coords are inverted from render target
     vec3 normal = texture2D(normalMap, vec2(gl_PointCoord.x, 1.0 - gl_PointCoord.y)).rgb * 2.0 - 1.0;
@@ -50,7 +50,7 @@ export const fragmentShader = `
     color *= intensty2;
 
     // Set outgoing color
-    outgoingColor.rgb = color;
+    // outgoingColor.rgb = color;
 
     gl_FragColor = outgoingColor;
   }
