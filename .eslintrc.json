@@ -1,9 +1,6 @@
 {
   "root": true,
-  "extends": [
-    "airbnb-base",
-    "prettier"
-  ],
+  "extends": ["airbnb-base", "prettier"],
   "env": {
     "browser": true,
     "es6": true
@@ -13,18 +10,13 @@
     "ecmaVersion": 6
   },
   "rules": {
-    "arrow-body-style": [
-      "error",
-      "as-needed"
-    ],
+    "arrow-body-style": ["error", "as-needed"],
     "import/prefer-default-export": 0,
     "prefer-destructuring": 0,
     "import/no-named-as-default": 0,
-    "comma-dangle": [
-      "error",
-      "never"
-    ],
+    "comma-dangle": ["error", "never"],
     "no-param-reassign": 0,
-    "no-bitwise": 0
+    "no-bitwise": 0,
+    "no-plusplus": 0
   }
 }

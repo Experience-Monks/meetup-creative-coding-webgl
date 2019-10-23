@@ -14,9 +14,6 @@ body {
   overflow: hidden;
 }
 
-.example {
-}
-
 h1 {
   font-size: 2.5rem;
   letter-spacing: 0.025em;
@@ -34,11 +31,6 @@ a {
 
 a:hover {
   text-decoration: underline;
-}
-
-hr {
-  border: 0;
-  border-bottom: 1px solid #ffffff;
 }
 
 header {

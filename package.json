@@ -1,19 +1,32 @@
 {
   "name": "creative-coding-meetup",
-  "version": "0.0.0",
-  "description": "Creative coding demos with WebGL",
+  "version": "0.0.1",
+  "description": "A WebGL experiment created for Jam3's Creative Coding Meetup on October 23rd 2019.",
   "scripts": {
     "start": "concurrently 'npm run server' 'npm run src:js' 'npm run src:html'",
-    "server": "live-server ./build --port 3000 --quiet --watch ./build --watch ./build --wait 0",
+    "server": "live-server ./build --port 3000 --quiet --watch ./build --watch ./build",
     "src:js": "webpack --colors --watch",
     "src:html": "npm run src:files; pug --silent --obj ./build/sketches.json --watch ./src/templates/*.pug --out ./build",
-    "src:files": "pug --obj ./build/sketches.json ./src/templates/*.pug --out ./build",
-    "build": "npm run lint; babel src --out-dir lib",
-    "lint": "eslint --fix --ext .js ./src ./internals --cache",
-    "precommit": "npm run lint"
+    "src:files": "pug --silent --obj ./build/sketches.json ./src/templates/*.pug --out ./build",
+    "js-lint": "eslint './*.js' -c ./.eslintrc.json --quiet",
+    "linters": "npm run js-lint"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "echo 'Pre-commit checks...' && lint-staged",
+      "pre-push": "echo 'Pre-push checks...' && npm run linters"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jam3/meetup-creative-coding-webgl.git"
   },
   "author": "Amelie Rosser <amelierosser1986@gmail.com> (https://www.ixviii.io)",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Jam3/meetup-creative-coding-webgl/issues"
+  },
+  "homepage": "https://github.com/Jam3/meetup-creative-coding-webgl#readme",
   "devDependencies": {
     "babel-cli": "^6.6.5",
     "babel-eslint": "^8.0.1",
@@ -25,7 +38,8 @@
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-config-prettier": "^2.7.0",
     "eslint-plugin-import": "^2.8.0",
-    "husky": "^0.14.3",
+    "husky": "^3.0.9",
+    "lint-staged": "^9.4.2",
     "live-server": "^1.2.0",
     "pug-cli": "^1.0.0-alpha6",
     "webpack": "^3.8.1"
@@ -33,6 +47,19 @@
   "dependencies": {
     "@jam3/stats": "^1.0.1",
     "dat.gui": "^0.7.6",
-    "query-string": "^5.0.1"
+    "detect-gpu": "^1.1.2",
+    "query-string": "^5.0.1",
+    "three": "^0.109.0"
+  },
+  "engines": {
+    "node": ">=12.13.0",
+    "npm": ">=6.12.0"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
   }
 }
